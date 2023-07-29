@@ -1,11 +1,14 @@
 {
   "name": "OTP-verification-node-mongo",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "OTP Authentication using NodeJs + MongoDB",
   "main": "index.js",
   "scripts": {
     "start": "node src/",
     "dev": "nodemon src/",
+    "lint": "esw --ext .json,.js src --color",
+    "lint:fix": "eslint src --ext .json,.js --fix",
+    "precommit": "npm run lint",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -30,10 +33,23 @@
     "eslint": "^8.46.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.28.0",
+    "husky": "8.0.3",
+    "lint-staged": "13.2.3",
     "nodemon": "3.0.1"
   },
   "engines": {
     "node": "18.14.0",
     "npm": "9.3.1"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint",
+      "pre-push": "lint-staged && npm run lint"
+    }
   }
 }
